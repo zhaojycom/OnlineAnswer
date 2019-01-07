@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/title_bar_plr"
+    android:paddingRight="@dimen/title_bar_plr">
+
+    <!--题干-->
+    <TextView
+        android:id="@+id/questionStem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/datiQuesionMt"
+        android:textColor="@color/black"
+        android:textSize="@dimen/datiQuestionS" />
+
+    <!--选项列表-->
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/optionRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:overScrollMode="never">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <!--批改结果-->
+    <LinearLayout
+        android:id="@+id/questionResult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/questionResultMt"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <!--正确答案-->
+        <TextView
+            android:id="@+id/correctAnswer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <!--我的答案-->
+        <TextView
+            android:id="@+id/myAnswer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/questionResultTvMl" />
+
+    </LinearLayout>
+
+</LinearLayout>

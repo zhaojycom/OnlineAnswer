@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">在线答题</string>
+    <string name="questionBank">题库</string>
+    <string name="classify">分类</string>
+    <string name="my">我</string>
+    <string name="pleaseLogin">请登录</string>
+    <string name="login">登录</string>
+    <string name="please_input_phone">请输入手机号</string>
+    <string name="please_input_ver_code">请输入4位图形验证码</string>
+    <string name="please_input_msg_ver_code">请输入短信验证码</string>
+    <string name="loading">数据加载中...</string>
+    <string name="immediateAccess">立即获取</string>
+    <string name="findMore">查看更多</string>
+    <string name="set">设置</string>
+    <string name="exitLogin">退出登录</string>
+    <string name="clickAlertNickName">点击修改昵称</string>
+    <string name="moreSort">所有分类</string>
+    <string name="nickname">昵称</string>
+    <string name="cancel">取消</string>
+    <string name="asure">确定</string>
+    <string name="preQuestion">上一题</string>
+    <string name="nextQuestion">下一题</string>
+    <string name="submitAnswer">提交并查看结果</string>
+    <string name="scantron">答题卡</string>
+    <string name="finished">已完成(0/0)</string>
+    <string name="inputKeyWord">请输入关键字</string>
+    <string name="searchHistory">搜索历史</string>
+    <string name="clearRecords">清空记录</string>
+
+</resources>

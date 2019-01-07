@@ -1,0 +1,70 @@
+package com.zhaojy.onlineanswer.constant;
+
+/**
+ * @author: zhaojy
+ * @data:On 2018/9/28.
+ */
+
+public class Strings {
+    /**
+     * SharePrefer
+     */
+    public final static String ROOT_NAME = "onlineAnswer";
+    /**
+     * 用户手机号
+     */
+    public final static String USER_PHONE = "userPhone";
+
+    public final static String COUNTRY_CODE = "86";
+    public final static String MSG_SEND_SUCCESS = "短信验证码发送成功";
+    public final static String PLEASE_INPUT_MSG_CODE = "短信验证码发送成功";
+    public final static String PLEASE_INPUT_VERCODE = "请填写图形验证码";
+    public final static int RECOMMECND_ARTICLE = 1;
+    public final static int ZHIWUZHONGZHI = 2;
+    public final static int QUWEIZHIWU = 3;
+    public final static int ZHIWUZIXUN = 4;
+    public final static int ZHIWUZHISHI = 5;
+    /**
+     * 头像宽高
+     */
+    public final static int AVATAR_WH = 600;
+    public final static int BANNER_HEIGHT = 540;
+    public final static int BANNER_WIDTH = 1080;
+    public final static String SELECT_AVATAR = "选择头像";
+    public final static String SELECT_BANNER = "选择背景";
+    public final static String AVATAR_UPLOAD_SUCCESS = "头像上传成功";
+    public final static String AVATAR_UPLOAD_FAILURE = "头像上传失败";
+    public final static String BANNER_UPLOAD_SUCCESS = "背景上传成功";
+    public final static String BANNER_UPLOAD_FAILURE = "背景上传失败";
+    public final static String INPUT_CONTENT_NO_EMPTY = "输入的内容不能为空";
+    public final static String PRESS_EXIT_PROCEDURE_AGAIN = "再按一次退出程序";
+    public final static String MEDIATYPE_JSON = "application/json; charset=utf-8";
+    public final static String MEDIATYPE_IMAGE = "image/png";
+    public final static String LOGIN_SUCCESS = "登录成功";
+    public final static String LOGIN_FAILURE = "登录失败";
+    public final static String PLEASE_LOGIN = "请登录";
+    public final static float PERSONAL_INFO_BOX_ASPECT_RATIO = 0.5f;
+    public final static double BANNER_ASPECT_RATIO = 0.382;
+    public final static String MORE_SORT = "更多分类";
+    public final static String NICKNAME_ALTER_SUCCESS = "昵称修改成功";
+    public final static String NICKNAME_ALTER_FAILURE = "昵称修改失败";
+    public final static String NICKNAME_EXIST = "昵称已存在";
+    /**
+     * 一次读取的最大题目数
+     */
+    public final static int MAX_READ_QUESTION_SUM = 10;
+    public final static String FINISHED = "已完成";
+    public final static String PLEASE_FINISH_ALL_QUESTION = "请完成所有试题";
+    /* 提交成功返回码 */
+    public final static int SUBMIT_SUCCESS = 0x100;
+    /* 提交失败返回码 */
+    public final static int SUBMIT_FAILURE = 0x101;
+    public final static String CORRECT_ANSWER = "正确答案：";
+    public final static String MY_ANSWER = "我的答案：";
+    public final static String CORRECT = "（正确）";
+    public final static String ERROR = "（错误）";
+    public final static String APPLY_PERMISSION = "申请应用所需权限";
+    public final static String GIVE_QUESTIONS = "正在出题...";
+    public final static int SEARCH_HISTORY_ITEM_GAP = 6;
+    public final static String CLICK_ALTER_NICKNAME="点击修改昵称";
+}

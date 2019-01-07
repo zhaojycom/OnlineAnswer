@@ -1,0 +1,49 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="loginInput">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@null</item>
+        <item name="android:textColorHint">@color/white</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/login_input_font_s</item>
+        <item name="android:layout_centerVertical">true</item>
+    </style>
+
+    <style name="loginItemBox">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/login_input_h</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingLeft">@dimen/login_input_plr</item>
+        <item name="android:paddingRight">@dimen/login_input_plr</item>
+        <item name="android:background">@drawable/login_input_shape</item>
+    </style>
+
+    <style name="alterNickname">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingBottom">@dimen/alterNicknameBtPtb</item>
+        <item name="android:paddingTop">@dimen/alterNicknameBtPtb</item>
+        <item name="android:textSize">@dimen/alterNicknameFontS</item>
+    </style>
+
+    <style name="datiBottomBarTv">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/theme</item>
+        <item name="android:background">@drawable/dati_bottom_tv_selector</item>
+    </style>
+
+</resources>

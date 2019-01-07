@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/themeBk"
+    android:orientation="vertical">
+
+    <!--标题栏-->
+    <RelativeLayout
+        android:id="@+id/titleBar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/titleBarH"
+        android:background="@color/titlebar"
+        android:paddingLeft="@dimen/title_bar_plr"
+        android:paddingRight="@dimen/title_bar_plr">
+
+        <!--返回按钮-->
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/titleBarIconP"
+            android:src="@mipmap/back" />
+
+        <!--题目分类名称-->
+        <TextView
+            android:id="@+id/questionSortName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/title_ml"
+            android:layout_toRightOf="@+id/back"
+            android:textColor="@color/white"
+            android:textSize="@dimen/title_bar_font_s" />
+
+        <!--右侧-->
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true">
+
+            <!--答题卡-->
+            <ImageView
+                android:id="@+id/scantron"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/title_bar_plr"
+                android:padding="@dimen/titleBarIconP"
+                android:src="@mipmap/questions" />
+
+            <!--计时器-->
+            <ImageView
+                android:id="@+id/timer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/datiRightM"
+                android:layout_toRightOf="@+id/scantron"
+                android:padding="@dimen/titleBarIconP"
+                android:src="@mipmap/timer" />
+
+            <Chronometer
+                android:id="@+id/chronometer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/datiRightM"
+                android:layout_toRightOf="@+id/timer"
+                android:format="00:00:00"
+                android:gravity="center"
+                android:textColor="@color/theme" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <!--top bar-->
+    <RelativeLayout
+        android:id="@+id/topBar"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/datiTopBarH"
+        android:layout_below="@+id/titleBar"
+        android:paddingLeft="@dimen/title_bar_plr"
+        android:paddingRight="@dimen/title_bar_plr">
+
+        <!--子标题-->
+        <TextView
+            android:id="@+id/subTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textColor="@color/datiTopBarSubTitle" />
+
+        <!--第几题/总题数-->
+        <TextView
+            android:id="@+id/page"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:text="0/0"
+            android:textColor="@color/theme" />
+
+    </RelativeLayout>
+
+    <!--题目内容-->
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottomBar"
+        android:layout_below="@+id/topBar"
+        android:background="@color/white"
+        android:overScrollMode="never">
+
+    </android.support.v4.view.ViewPager>
+
+    <!--底部栏-->
+    <LinearLayout
+        android:id="@+id/bottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/datiBottomBarH"
+        android:layout_alignParentBottom="true"
+        android:background="@color/titlebar"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <!--上一题-->
+        <TextView
+            android:id="@+id/preQuestion"
+            style="@style/datiBottomBarTv"
+            android:text="@string/preQuestion" />
+
+        <!--下一题-->
+        <TextView
+            android:id="@+id/nextQuestion"
+            style="@style/datiBottomBarTv"
+            android:text="@string/nextQuestion" />
+
+        <!--提交试卷-->
+        <TextView
+            android:id="@+id/submitAnswer"
+            style="@style/datiBottomBarTv"
+            android:text="@string/submitAnswer"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+</RelativeLayout>

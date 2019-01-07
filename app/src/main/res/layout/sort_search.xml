@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg"
+    android:orientation="vertical">
+
+    <!--标题栏-->
+    <RelativeLayout
+        android:id="@+id/titleBar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/titleBarH"
+        android:background="@color/titlebar"
+        android:paddingLeft="@dimen/title_bar_plr"
+        android:paddingRight="@dimen/title_bar_plr">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/searchBoxH"
+            android:layout_centerInParent="true"
+            android:background="@drawable/search_box_shape"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/searchBoxPlr"
+            android:paddingRight="@dimen/searchBoxPlr">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/mini_search" />
+
+            <EditText
+                android:id="@+id/inputKeyWord"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/searchBoxPlr"
+                android:background="@null"
+                android:hint="@string/inputKeyWord"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:maxLines="1"
+                android:textColor="@color/black"
+                android:textSize="@dimen/searchBoxFont" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/searchHistoryMlr"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="@dimen/searchHistoryMlr">
+
+        <!--搜索历史-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:text="@string/searchHistory"
+            android:textSize="@dimen/searchHistoryItemFont" />
+
+        <!--清空记录-->
+        <TextView
+            android:id="@+id/clearRecords"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="@string/clearRecords"
+            android:textSize="@dimen/searchHistoryItemFont" />
+
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/searchHistory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/searchHistoryMlr"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="@dimen/searchHistoryMlr"
+        android:overScrollMode="never">
+
+    </android.support.v7.widget.RecyclerView>
+
+</LinearLayout>

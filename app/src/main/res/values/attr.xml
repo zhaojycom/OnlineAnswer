@@ -1,0 +1,11 @@
+<resources>
+    <!-- 自定义圆角imageview属性-->
+    <declare-styleable name="RoundImageView">
+        <attr name="xhradius" format="dimension" />
+        <attr name="xhtype">
+            <enum name="fillet" value="0" />
+            <enum name="round" value="1" />
+        </attr>
+    </declare-styleable>
+
+</resources>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/themeBk"
+    android:orientation="vertical">
+
+    <!--轮播图-->
+    <com.youth.banner.Banner
+        android:id="@+id/banner"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/banner_h"
+        android:focusableInTouchMode="true" />
+
+    <!--题目分类-->
+    <GridView
+        android:id="@+id/sortGridView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:numColumns="4"
+        android:paddingBottom="@dimen/questionSortPtb"
+        android:paddingTop="@dimen/questionSortPtb"
+        android:scrollbars="none"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="@dimen/questionSortverticalSpacing">
+
+    </GridView>
+
+</LinearLayout>

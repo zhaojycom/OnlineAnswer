@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#25c27c</color>
+    <color name="colorPrimaryDark">#000</color>
+    <color name="colorAccent">#25c27c</color>
+    <color name="theme">#25c27c</color>
+    <color name="darkTheme">#1eae6e</color>
+    <color name="titlebar">#3c434d</color>
+    <color name="tab_checked">#25c27c</color>
+    <color name="tab_unchecked">#ababab</color>
+    <color name="themeBk">#f2f2f2</color>
+    <color name="popwindowbg">#36000000</color>
+    <color name="moreSortSplitLine">#c6c6c6</color>
+    <color name="datiTopBarSubTitle">#666</color>
+    <color name="option">#444</color>
+    <color name="error">#f00</color>
+    <color name="dati_bottom_btn_selected">#2c3037</color>
+</resources>

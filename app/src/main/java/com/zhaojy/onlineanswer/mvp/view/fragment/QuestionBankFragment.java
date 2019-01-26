@@ -15,7 +15,9 @@ import com.youth.banner.Transformer;
 import com.youth.banner.loader.ImageLoader;
 import com.zhaojy.onlineanswer.R;
 import com.zhaojy.onlineanswer.bean.QuestionSort;
+import com.zhaojy.onlineanswer.bean.Slideshow;
 import com.zhaojy.onlineanswer.bean.User;
+import com.zhaojy.onlineanswer.constant.SiteInfo;
 import com.zhaojy.onlineanswer.constant.Strings;
 import com.zhaojy.onlineanswer.mvp.adapter.QuestionSortAdapter;
 import com.zhaojy.onlineanswer.mvp.contract.QuestionBankFragmentContract;
@@ -41,13 +43,21 @@ public class QuestionBankFragment extends BaseFragment implements QuestionBankFr
     /**
      * 轮播图图片地址
      */
-    private List<String> images;
+    private List<Slideshow> images;
     @BindView(R.id.sortGridView)
     public GridView sortGridView;
     private List<QuestionSort> questionSortList;
     private QuestionSortAdapter questionSortAdapter;
 
     private QuestionBankFragmentContract.Presenter presenter;
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (banner != null) {
+            banner.releaseBanner();
+        }
+    }
 
     @Override
     protected int getPageLayoutID() {
@@ -71,12 +81,8 @@ public class QuestionBankFragment extends BaseFragment implements QuestionBankFr
     protected void process(Bundle savedInstanceState) {
         //获取题目分类信息
         presenter.getQuestionSort(getActivity());
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-
+        //获取轮播图
+        presenter.getSlideshow(getActivity());
     }
 
     /**
@@ -88,27 +94,6 @@ public class QuestionBankFragment extends BaseFragment implements QuestionBankFr
         int height = (int) (screenWidth * Strings.BANNER_ASPECT_RATIO);
         LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) banner.getLayoutParams();
         layoutParams.height = height;
-        if (images == null) {
-            images = new ArrayList<>();
-        }
-        images.add("http://img.zcool.cn/community/0117ea577e1bb00000012e" +
-                "7e9a2de2.jpg@1280w_1l_2o_100sh.jpg");
-        images.add("http://img2.imgtn.bdimg.com/it/u=2003883170,1485855498&fm=26&gp=0.jpg");
-        images.add("http://img3.imgtn.bdimg.com/it/u=2626473408,3175033639&fm=26&gp=0.jpg");
-
-        banner.setImages(images).setImageLoader(new ImageLoader() {
-            @Override
-            public void displayImage(Context context, Object path, ImageView imageView) {
-                String url = (String) path;
-                Glide.with(context)
-                        .load(url)
-                        .into(imageView);
-            }
-        });
-        //设置轮播时间
-        banner.setDelayTime(6000);
-        banner.setBannerAnimation(Transformer.DepthPage);
-        banner.start();
     }
 
     /**
@@ -147,7 +132,6 @@ public class QuestionBankFragment extends BaseFragment implements QuestionBankFr
         });
     }
 
-
     @Override
     public void updateQuestionSort(List<QuestionSort> sortList) {
         questionSortList.addAll(sortList);
@@ -158,4 +142,29 @@ public class QuestionBankFragment extends BaseFragment implements QuestionBankFr
 
         questionSortAdapter.notifyDataSetChanged();
     }
+
+    @Override
+    public void updateSlideshow(List<Slideshow> bannerList) {
+        if (images == null) {
+            images = new ArrayList<>();
+        }
+        images.clear();
+        images.addAll(bannerList);
+        banner.setImages(images).setImageLoader(new ImageLoader() {
+            @Override
+            public void displayImage(Context context, Object path, ImageView imageView) {
+                Slideshow slideshow = (Slideshow) path;
+                String url = slideshow.getUrl();
+                Glide.with(context)
+                        .load(SiteInfo.HOST_URL + url)
+                        .into(imageView);
+            }
+        });
+
+        //设置轮播时间
+        banner.setDelayTime(6000);
+        banner.setBannerAnimation(Transformer.DepthPage);
+        banner.start();
+    }
+
 }

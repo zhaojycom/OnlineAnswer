@@ -3,6 +3,8 @@ package com.zhaojy.onlineanswer.mvp.view.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -10,16 +12,22 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.youth.banner.Banner;
 import com.youth.banner.Transformer;
 import com.youth.banner.loader.ImageLoader;
 import com.zhaojy.onlineanswer.R;
+import com.zhaojy.onlineanswer.bean.FunDaTiBean;
 import com.zhaojy.onlineanswer.bean.QuestionSort;
 import com.zhaojy.onlineanswer.bean.Slideshow;
 import com.zhaojy.onlineanswer.bean.User;
 import com.zhaojy.onlineanswer.constant.SiteInfo;
 import com.zhaojy.onlineanswer.constant.Strings;
+import com.zhaojy.onlineanswer.helper.ExitLoginSubject;
+import com.zhaojy.onlineanswer.helper.IExitLoginObserver;
+import com.zhaojy.onlineanswer.mvp.adapter.FunDaTiAdapter;
 import com.zhaojy.onlineanswer.mvp.adapter.QuestionSortAdapter;
+import com.zhaojy.onlineanswer.mvp.contract.LoginActivityContract;
 import com.zhaojy.onlineanswer.mvp.contract.QuestionBankFragmentContract;
 import com.zhaojy.onlineanswer.mvp.presenter.QuestionBankPresenter;
 import com.zhaojy.onlineanswer.mvp.view.activity.DaTiActivity;
@@ -37,7 +45,11 @@ import butterknife.BindView;
  * @data:On 2018/10/14.
  */
 
-public class QuestionBankFragment extends BaseFragment implements QuestionBankFragmentContract.View {
+public class QuestionBankFragment extends BaseFragment
+        implements QuestionBankFragmentContract.View
+        , IExitLoginObserver
+        , LoginActivityContract.UpdateUserInfo
+        , MoreSortActivity.UpdateUserSort {
     @BindView(R.id.banner)
     public Banner banner;
     /**
@@ -46,8 +58,12 @@ public class QuestionBankFragment extends BaseFragment implements QuestionBankFr
     private List<Slideshow> images;
     @BindView(R.id.sortGridView)
     public GridView sortGridView;
+    @BindView(R.id.funDaTi)
+    public RecyclerView funDaTiRecycler;
     private List<QuestionSort> questionSortList;
     private QuestionSortAdapter questionSortAdapter;
+    private FunDaTiAdapter funDaTiAdapter;
+    private List<FunDaTiBean> funDaTiBeanList;
 
     private QuestionBankFragmentContract.Presenter presenter;
 
@@ -67,6 +83,22 @@ public class QuestionBankFragment extends BaseFragment implements QuestionBankFr
     @Override
     protected void initData(Bundle savedInstanceState) {
         presenter = new QuestionBankPresenter(this);
+        //初始化趣味答题列表数据
+        initFunDaTiData();
+    }
+
+    /**
+     * 初始化趣味答题列表数据
+     */
+    private void initFunDaTiData() {
+        funDaTiBeanList = new ArrayList<>();
+        for (int i = 0; i < 6; i++) {
+            FunDaTiBean funDaTiBean = new FunDaTiBean();
+            funDaTiBean.setTitle(Strings.ENCYCLOPEDIA_HERO);
+            funDaTiBean.setIcon(R.mipmap.baikehero);
+            funDaTiBeanList.add(funDaTiBean);
+        }
+        funDaTiAdapter = new FunDaTiAdapter(funDaTiBeanList);
     }
 
     @Override
@@ -75,14 +107,22 @@ public class QuestionBankFragment extends BaseFragment implements QuestionBankFr
         setBanner();
         //设置题目分类Gridview
         setSortGridView();
+        //设置趣味答题RecyclerView
+        setFunDaTi();
     }
 
     @Override
     protected void process(Bundle savedInstanceState) {
         //获取题目分类信息
-        presenter.getQuestionSort(getActivity());
+        presenter.getUserQuestionSort(getActivity());
         //获取轮播图
         presenter.getSlideshow(getActivity());
+        //注册退出登录观察者
+        ExitLoginSubject.getInstance().registerObserver(this);
+        //设置登录更新接口
+        LoginActivity.setUpdateUserInfo(this);
+        //设置用户分类更新接口
+        MoreSortActivity.setUpdateUserSort(this);
     }
 
     /**
@@ -121,11 +161,10 @@ public class QuestionBankFragment extends BaseFragment implements QuestionBankFr
                         LoginActivity.newInstance(getActivity());
                         return;
                     }
+                    QuestionSort sort = questionSortList.get(position);
                     Intent intent = new Intent(getActivity(), DaTiActivity.class);
-                    intent.putExtra(DaTiActivity.QUESTION_SORT_NAME, questionSortList.get(position)
-                            .getName());
-                    intent.putExtra(DaTiActivity.QUESION_SORT_ID, questionSortList.get(position)
-                            .getId());
+                    intent.putExtra(DaTiActivity.QUESTION_SORT_NAME, sort.getName());
+                    intent.putExtra(DaTiActivity.QUESION_SORT_ID, sort.getId());
                     startActivity(intent);
                 }
             }
@@ -134,13 +173,14 @@ public class QuestionBankFragment extends BaseFragment implements QuestionBankFr
 
     @Override
     public void updateQuestionSort(List<QuestionSort> sortList) {
+        questionSortList.clear();
         questionSortList.addAll(sortList);
         QuestionSort questionSort = new QuestionSort();
         questionSort.setIconUrl("");
         questionSort.setName(Strings.MORE_SORT);
         questionSortList.add(questionSort);
-
-        questionSortAdapter.notifyDataSetChanged();
+        questionSortAdapter = new QuestionSortAdapter(getActivity(), questionSortList, sortGridView);
+        sortGridView.setAdapter(questionSortAdapter);
     }
 
     @Override
@@ -162,9 +202,59 @@ public class QuestionBankFragment extends BaseFragment implements QuestionBankFr
         });
 
         //设置轮播时间
-        banner.setDelayTime(6000);
+        banner.setDelayTime(Strings.SLIDESHOW_GAP);
         banner.setBannerAnimation(Transformer.DepthPage);
         banner.start();
+    }
+
+    /**
+     * 设置趣味答题recyclerview
+     */
+    @Override
+    public void setFunDaTi() {
+        //一行代码开启动画 默认CUSTOM动画
+        funDaTiAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_BOTTOM);
+
+        //设置布局管理器
+        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(),
+                LinearLayoutManager.VERTICAL, false) {
+            @Override
+            public boolean canScrollVertically() {
+                return true;
+            }
+        };
+
+        funDaTiRecycler.setLayoutManager(linearLayoutManager);
+        //如果可以确定每个item的高度是固定的，设置这个选项可以提高性能
+        funDaTiRecycler.setHasFixedSize(true);
+        funDaTiRecycler.setAdapter(funDaTiAdapter);
+
+        //设置监听器
+        funDaTiAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+
+            }
+        });
+    }
+
+    @Override
+    public void exitLoginUpdate() {
+        //退出登录
+        //获取题目分类信息
+        presenter.getUserQuestionSort(getActivity());
+    }
+
+    @Override
+    public void setUserInfo() {
+        //获取题目分类信息
+        presenter.getUserQuestionSort(getActivity());
+    }
+
+    @Override
+    public void updateUserSort() {
+        //获取题目分类信息
+        presenter.getUserQuestionSort(getActivity());
     }
 
 }

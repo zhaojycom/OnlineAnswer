@@ -26,21 +26,27 @@
 
         <activity
             android:name=".mvp.view.activity.MoreSortActivity"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTop" />
 
         <activity
             android:name=".mvp.view.activity.LoginActivity"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTop" />
 
         <activity
             android:name=".mvp.view.activity.DaTiActivity"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTop" />
 
         <activity
             android:name=".mvp.view.activity.SortSearchActivity"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTop" />
 
-        <activity android:name="com.zhaojy.selectlibrary.view.PhotoSelectActivity" />
+        <activity
+            android:name=".mvp.view.activity.ErrorsPracticeActivity"
+            android:launchMode="singleTop" />
+
+        <activity
+            android:name="com.zhaojy.selectlibrary.view.PhotoSelectActivity"
+            android:launchMode="singleTop" />
 
     </application>
 

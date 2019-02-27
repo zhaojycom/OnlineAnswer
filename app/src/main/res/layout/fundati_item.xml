@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/title_bar_plr"
+    android:paddingTop="@dimen/fundatiItemPtb"
+    android:paddingRight="@dimen/title_bar_plr"
+    android:paddingBottom="@dimen/fundatiItemPtb">
+
+    <!--标题-->
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="@dimen/fundatiTitleFontS" />
+
+    <!--图标-->
+    <com.zhaojy.onlineanswer.ui.RoundImageView
+        android:id="@+id/icon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/fundatiItemPtb"
+        android:scaleType="fitXY"
+        app:xhradius="10dp"
+        app:xhtype="fillet" />
+
+</LinearLayout>

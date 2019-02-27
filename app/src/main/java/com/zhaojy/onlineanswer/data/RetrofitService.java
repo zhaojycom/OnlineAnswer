@@ -1,8 +1,11 @@
 package com.zhaojy.onlineanswer.data;
 
+import com.zhaojy.onlineanswer.bean.ErrorsSort;
 import com.zhaojy.onlineanswer.bean.Question;
+import com.zhaojy.onlineanswer.bean.QuestionDifficult;
 import com.zhaojy.onlineanswer.bean.QuestionSort;
 import com.zhaojy.onlineanswer.bean.ResponseBody;
+import com.zhaojy.onlineanswer.bean.Slideshow;
 import com.zhaojy.onlineanswer.bean.User;
 
 import java.util.List;
@@ -46,8 +49,8 @@ public interface RetrofitService {
      * @return
      */
     @Headers({"Content-type:application/json;charset=UTF-8"})
-    @POST("getQuestionSort")
-    Observable<List<QuestionSort>> getQuestionSort(@Body RequestBody requestBody);
+    @POST("getMoreSort")
+    Observable<List<QuestionSort>> getMoreSort(@Body RequestBody requestBody);
 
 
     /**
@@ -69,5 +72,87 @@ public interface RetrofitService {
     @Headers({"Content-type:application/json;charset=UTF-8"})
     @POST("submitQuestion")
     Observable<ResponseBody> submitQuestion(@Body RequestBody requestBody);
+
+    /**
+     * 提交已完成的题目
+     *
+     * @param requestBody
+     * @return
+     */
+    @Headers({"Content-type:application/json;charset=UTF-8"})
+    @POST("getBannerImg")
+    Observable<List<Slideshow>> getSlideshow();
+
+    /**
+     * 获取错题分类信息
+     *
+     * @param requestBody
+     * @return
+     */
+    @Headers({"Content-type:application/json;charset=UTF-8"})
+    @POST("getMyErrorsSorts")
+    Observable<List<ErrorsSort>> getMyErrorsSorts(@Body RequestBody requestBody);
+
+
+    /**
+     * 获取题目
+     *
+     * @param requestBody
+     * @return
+     */
+    @Headers({"Content-type:application/json;charset=UTF-8"})
+    @POST("readErrorQuestion")
+    Observable<List<Question>> getErrorQuestions(@Body RequestBody requestBody);
+
+    /**
+     * 获取题目
+     *
+     * @param requestBody
+     * @return
+     */
+    @Headers({"Content-type:application/json;charset=UTF-8"})
+    @POST("submitErrorQuestion")
+    Observable<ResponseBody> submitErrorQuestion(@Body RequestBody requestBody);
+
+    /**
+     * 获取题目难度
+     *
+     * @param requestBody
+     * @return
+     */
+    @Headers({"Content-type:application/json;charset=UTF-8"})
+    @POST("getQuestionDifficult")
+    Observable<List<QuestionDifficult>> getQuestionDifficult();
+
+
+    /**
+     * 获取当前用户的题目分类
+     *
+     * @param requestBody
+     * @return
+     */
+    @Headers({"Content-type:application/json;charset=UTF-8"})
+    @POST("getUserSort")
+    Observable<List<QuestionSort>> getUserSort(@Body RequestBody requestBody);
+
+    /**
+     * 添加用户的题目分类
+     *
+     * @param requestBody
+     * @return
+     */
+    @Headers({"Content-type:application/json;charset=UTF-8"})
+    @POST("addUserSort")
+    Observable<ResponseBody> addUserSort(@Body RequestBody requestBody);
+
+    /**
+     * 删除用户的题目分类
+     *
+     * @param requestBody
+     * @return
+     */
+    @Headers({"Content-type:application/json;charset=UTF-8"})
+    @POST("deleteUserSort")
+    Observable<ResponseBody> deleteUserSort(@Body RequestBody requestBody);
 
 }

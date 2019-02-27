@@ -80,17 +80,20 @@ public class GetQuestionPresenter implements Presenter {
     /**
      * 获取题目
      *
-     * @param sortId 题目分类id
+     * @param sortId      题目分类id
+     * @param difficultId 难度id
      */
-    public void getQuestion(int sortId) {
+    public void getQuestion(int sortId, int difficultId) {
         QuestionRequestParams params = new QuestionRequestParams();
         params.setSortId(sortId);
+        params.setDifficultId(difficultId);
         params.setLimit(Strings.MAX_READ_QUESTION_SUM);
         params.setOffset(0);
         String userPhone = SharePreferUtils.getString(mContext, Strings.USER_PHONE);
         params.setUserPhone(userPhone);
         RequestBody body = RequestBody.create(okhttp3.MediaType.parse(
                 Strings.MEDIATYPE_JSON), new Gson().toJson(params));
+
         mCompositeSubscription.add(manager.getQuestion(body)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

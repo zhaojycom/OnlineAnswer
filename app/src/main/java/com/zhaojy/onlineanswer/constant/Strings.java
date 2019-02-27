@@ -44,7 +44,7 @@ public class Strings {
     public final static String LOGIN_FAILURE = "登录失败";
     public final static String PLEASE_LOGIN = "请登录";
     public final static float PERSONAL_INFO_BOX_ASPECT_RATIO = 0.5f;
-    public final static double BANNER_ASPECT_RATIO = 0.382;
+    public final static double BANNER_ASPECT_RATIO = 0.3125;
     public final static String MORE_SORT = "更多分类";
     public final static String NICKNAME_ALTER_SUCCESS = "昵称修改成功";
     public final static String NICKNAME_ALTER_FAILURE = "昵称修改失败";
@@ -66,5 +66,35 @@ public class Strings {
     public final static String APPLY_PERMISSION = "申请应用所需权限";
     public final static String GIVE_QUESTIONS = "正在出题...";
     public final static int SEARCH_HISTORY_ITEM_GAP = 6;
-    public final static String CLICK_ALTER_NICKNAME="点击修改昵称";
+    public final static String CLICK_ALTER_NICKNAME = "点击修改昵称";
+    public final static String INPUT_NO_EMPTY = "输入不能为空";
+    public final static String NO_SEARCH_RESULT = "没有搜索结果";
+    public final static String ERRORS_PRACTICE = "错题练习";
+    public final static String ASURE_EXIT_LOGIN = "是否确认退出登录?";
+    public final static String SELECT_DIFFICULT = "请选择题目难度";
+    public final static String RAND = "随机";
+    public final static int SLIDESHOW_GAP = 6000;
+    /**
+     * 添加成功返回码
+     */
+    public final static int ADD_SUCCESS = 0x106;
+    /**
+     * 添加失败返回码
+     */
+    public final static int ADD_FAILURE = 0x107;
+    /**
+     * 删除成功返回码
+     */
+    public final static int DELETE_SUCCESS = 0x104;
+    /**
+     * 删除失败返回码
+     */
+    public final static int DELETE_FAILURE = 0x105;
+
+    public final static String ADD_FAILURE_MSG = "添加失败";
+
+    public final static String DELETE_FAILURE_MSG = "删除失败";
+    public final static int MAX_USER_SORT = 10;
+    public final static String OUT_MAX_USER_SORT="超出上限";
+    public final static String ENCYCLOPEDIA_HERO ="百科英雄";
 }

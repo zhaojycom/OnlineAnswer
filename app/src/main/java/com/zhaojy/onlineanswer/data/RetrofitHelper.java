@@ -5,6 +5,7 @@ import android.content.Context;
 import com.google.gson.GsonBuilder;
 
 import okhttp3.OkHttpClient;
+import retrofit2.Converter;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -16,9 +17,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitHelper {
     private Context mCntext;
-
     private OkHttpClient client = new OkHttpClient();
-    private GsonConverterFactory factory = GsonConverterFactory.create(new GsonBuilder().create());
+    private Converter.Factory factory = GsonConverterFactory.create(new GsonBuilder().create());
     private RetrofitHelper instance = null;
     private Retrofit mRetrofit = null;
 
@@ -46,6 +46,7 @@ public class RetrofitHelper {
         if (mRetrofit == null) {
             init();
         }
+
         return mRetrofit.create(RetrofitService.class);
     }
 

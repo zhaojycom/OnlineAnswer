@@ -81,7 +81,7 @@ public class QuestionSortAdapter extends BaseAdapter {
                 Glide.with(context)
                         .load(SiteInfo.HOST_URL + questionSort.getIconUrl())
                         .asBitmap()
-                        .placeholder(R.mipmap.icon)
+                        .placeholder(R.mipmap.moresort)
                         .centerCrop()
                         .into(new SimpleTarget<Bitmap>() {
                             @Override

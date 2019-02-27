@@ -15,4 +15,6 @@ public class SiteInfo {
     public final static String UPLOAD_AVATAR = "uploadAvatar";
     public final static String UPLOAD_BANNER = "uploadBanner";
     public final static String QUESTION = "OnlineAnswer/question/";
+    public final static String SYSTEM = "OnlineAnswer/system/";
+
 }

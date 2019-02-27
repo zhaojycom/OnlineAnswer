@@ -5,7 +5,7 @@ import android.content.Intent;
 
 import com.google.gson.Gson;
 import com.zhaojy.onlineanswer.bean.QuestionSort;
-import com.zhaojy.onlineanswer.bean.RequestParams;
+import com.zhaojy.onlineanswer.bean.User;
 import com.zhaojy.onlineanswer.constant.Strings;
 import com.zhaojy.onlineanswer.data.BaseUpdate;
 import com.zhaojy.onlineanswer.data.DataManager;
@@ -77,12 +77,12 @@ public class GetQuestionSortPresenter implements Presenter {
     }
 
     /**
-     * 获取题目分类
+     * 获取更多分类
      */
-    public void getQuestionSort(RequestParams params) {
+    public void getMoreSort() {
         RequestBody body = RequestBody.create(okhttp3.MediaType.parse(
-                Strings.MEDIATYPE_JSON), new Gson().toJson(params));
-        mCompositeSubscription.add(manager.getQuestionSort(body)
+                Strings.MEDIATYPE_JSON), new Gson().toJson(User.getInstance()));
+        mCompositeSubscription.add(manager.getMoreSort(body)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<List<QuestionSort>>() {

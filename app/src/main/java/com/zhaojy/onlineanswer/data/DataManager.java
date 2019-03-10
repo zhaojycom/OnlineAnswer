@@ -155,4 +155,13 @@ public class DataManager {
     public Observable<ResponseBody> deleteUserSort(RequestBody requestBody) {
         return mRetrofitService.deleteUserSort(requestBody);
     }
+
+    /**
+     * 获取百科英雄题目
+     *
+     * @return
+     */
+    public Observable<List<Question>> getBaikeHeroQuestions(RequestBody requestBody) {
+        return mRetrofitService.getBaikeHeroQuestions(requestBody);
+    }
 }

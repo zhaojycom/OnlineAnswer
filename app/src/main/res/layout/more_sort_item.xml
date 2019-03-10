@@ -5,21 +5,19 @@
     android:background="?android:attr/selectableItemBackground"
     android:orientation="vertical">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/moreSortItemH"
         android:gravity="center_vertical"
-        android:orientation="horizontal"
         android:paddingLeft="@dimen/title_bar_plr"
-        android:paddingTop="@dimen/moreSortFontP"
-        android:paddingRight="@dimen/title_bar_plr"
-        android:paddingBottom="@dimen/moreSortFontP">
+        android:paddingRight="@dimen/title_bar_plr">
 
         <!--分类图标-->
         <com.zhaojy.onlineanswer.ui.RoundImageView
             android:id="@+id/icon"
             android:layout_width="@dimen/moreSortsIvWh"
             android:layout_height="@dimen/moreSortsIvWh"
+            android:layout_centerVertical="true"
             android:src="@mipmap/icon" />
 
         <!--分类名称-->
@@ -27,11 +25,42 @@
             android:id="@+id/sortName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/moreSortFontP"
+            android:layout_toRightOf="@+id/icon"
             android:textColor="@color/black"
             android:textSize="@dimen/moreSortFontS" />
 
-    </LinearLayout>
+        <LinearLayout
+            android:id="@+id/right"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <!--删除图标-->
+            <ImageView
+                android:id="@+id/delete"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingLeft="@dimen/moreSortIconPlr"
+                android:paddingRight="@dimen/moreSortIconPlr"
+                android:src="@mipmap/delete" />
+
+            <!--添加图标-->
+            <ImageView
+                android:id="@+id/add"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingLeft="@dimen/moreSortIconPlr"
+                android:paddingRight="@dimen/moreSortIconPlr"
+                android:src="@mipmap/add2" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
 
     <View
         android:layout_width="match_parent"

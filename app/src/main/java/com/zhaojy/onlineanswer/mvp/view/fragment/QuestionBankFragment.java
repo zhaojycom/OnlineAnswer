@@ -92,7 +92,7 @@ public class QuestionBankFragment extends BaseFragment
      */
     private void initFunDaTiData() {
         funDaTiBeanList = new ArrayList<>();
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 2; i++) {
             FunDaTiBean funDaTiBean = new FunDaTiBean();
             funDaTiBean.setTitle(Strings.ENCYCLOPEDIA_HERO);
             funDaTiBean.setIcon(R.mipmap.baikehero);
@@ -165,6 +165,7 @@ public class QuestionBankFragment extends BaseFragment
                     Intent intent = new Intent(getActivity(), DaTiActivity.class);
                     intent.putExtra(DaTiActivity.QUESTION_SORT_NAME, sort.getName());
                     intent.putExtra(DaTiActivity.QUESION_SORT_ID, sort.getId());
+                    intent.putExtra(DaTiActivity.DATI_SORT, DaTiActivity.ORDINARY_SORT);
                     startActivity(intent);
                 }
             }
@@ -230,10 +231,15 @@ public class QuestionBankFragment extends BaseFragment
         funDaTiRecycler.setAdapter(funDaTiAdapter);
 
         //设置监听器
-        funDaTiAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+        funDaTiAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
-            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                /*跳转至答题界面*/
+                FunDaTiBean funDaTiBean = funDaTiBeanList.get(position);
+                Intent intent = new Intent(getActivity(), DaTiActivity.class);
+                intent.putExtra(DaTiActivity.QUESTION_SORT_NAME, funDaTiBean.getTitle());
+                intent.putExtra(DaTiActivity.DATI_SORT, DaTiActivity.BAIKEHERO);
+                startActivity(intent);
             }
         });
     }

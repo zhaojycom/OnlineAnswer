@@ -1,30 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/themeBk"
     android:orientation="vertical">
 
-    <!--轮播图-->
-    <com.youth.banner.Banner
-        android:id="@+id/banner"
+    <!--标题栏-->
+    <RelativeLayout
+        android:id="@+id/titleBar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/banner_h"
-        android:focusableInTouchMode="true" />
+        android:layout_height="@dimen/titleBarH"
+        android:background="@color/titlebar"
+        android:paddingLeft="@dimen/title_bar_plr"
+        android:paddingRight="@dimen/title_bar_plr">
 
-    <!--题目分类-->
-    <GridView
-        android:id="@+id/sortGridView"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="@string/app_name"
+            android:textColor="@color/white"
+            android:textSize="@dimen/title_bar_font_s" />
+
+    </RelativeLayout>
+
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:numColumns="4"
-        android:paddingBottom="@dimen/questionSortPtb"
-        android:paddingTop="@dimen/questionSortPtb"
-        android:scrollbars="none"
-        android:stretchMode="columnWidth"
-        android:verticalSpacing="@dimen/questionSortverticalSpacing">
+        android:layout_height="match_parent">
 
-    </GridView>
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!--轮播图-->
+            <com.youth.banner.Banner
+                android:id="@+id/banner"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/banner_h"
+                android:background="@color/theme"
+                android:focusableInTouchMode="true"
+                app:layout_scrollFlags="scroll" />
+
+            <!--题目分类-->
+            <com.zhaojy.onlineanswer.ui.MyGridView
+                android:id="@+id/sortGridView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:numColumns="4"
+                android:paddingTop="@dimen/questionSortPtb"
+                android:paddingBottom="@dimen/questionSortPtb"
+                android:scrollbars="none"
+                android:stretchMode="columnWidth"
+                android:verticalSpacing="@dimen/questionSortverticalSpacing">
+
+            </com.zhaojy.onlineanswer.ui.MyGridView>
+
+        </android.support.design.widget.AppBarLayout>
+
+        <!--趣味答题-->
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/funDaTi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:overScrollMode="never"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        </android.support.v7.widget.RecyclerView>
+
+    </android.support.design.widget.CoordinatorLayout>
 
 </LinearLayout>

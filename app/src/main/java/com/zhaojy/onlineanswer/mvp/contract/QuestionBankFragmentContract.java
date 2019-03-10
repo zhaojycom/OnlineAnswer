@@ -3,6 +3,7 @@ package com.zhaojy.onlineanswer.mvp.contract;
 import android.content.Context;
 
 import com.zhaojy.onlineanswer.bean.QuestionSort;
+import com.zhaojy.onlineanswer.bean.Slideshow;
 
 import java.util.List;
 
@@ -14,6 +15,10 @@ public interface QuestionBankFragmentContract {
     interface View {
         void updateQuestionSort(List<QuestionSort> sortList);
 
+        void updateSlideshow(List<Slideshow> bannerList);
+
+void setFunDaTi();
+
     }
 
     interface Presenter {
@@ -21,13 +26,20 @@ public interface QuestionBankFragmentContract {
 
         void process();
 
-        void getQuestionSort(Context context);
+        void getUserQuestionSort(Context context);
 
         void updateQuestionSort(List<QuestionSort> sortList);
+
+        void getSlideshow(Context context);
+
+        void updateSlideshow(List<Slideshow> bannerList);
 
     }
 
     interface Model {
-        void getQuestionSort(Context context);
+        void getUserQuestionSort(Context context);
+
+        void getSlideshow(Context context);
+
     }
 }

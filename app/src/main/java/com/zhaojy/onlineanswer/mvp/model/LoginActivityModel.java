@@ -55,6 +55,11 @@ public class LoginActivityModel implements LoginActivityContract.Model {
                 Toast.makeText(context, Strings.LOGIN_FAILURE
                         , Toast.LENGTH_SHORT).show();
 
+                SharePreferUtils.storeDataByKey(context,
+                        Strings.USER_PHONE, null);
+
+                User.reset();
+
                 presenter.loginFailure();
             }
         });

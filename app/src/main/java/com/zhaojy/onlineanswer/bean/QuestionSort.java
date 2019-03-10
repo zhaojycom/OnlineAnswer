@@ -6,6 +6,10 @@ public class QuestionSort implements Serializable {
     private int id;
     private String name;
     private String iconUrl;
+    /**
+     * 是否被用户添加
+     */
+    private boolean added;
 
     public int getId() {
         return id;
@@ -31,4 +35,11 @@ public class QuestionSort implements Serializable {
         this.iconUrl = iconUrl;
     }
 
+    public boolean isAdded() {
+        return added;
+    }
+
+    public void setAdded(boolean added) {
+        this.added = added;
+    }
 }

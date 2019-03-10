@@ -155,4 +155,14 @@ public interface RetrofitService {
     @POST("deleteUserSort")
     Observable<ResponseBody> deleteUserSort(@Body RequestBody requestBody);
 
+    /**
+     * 获取百科英雄题目
+     *
+     * @param requestBody
+     * @return
+     */
+    @Headers({"Content-type:application/json;charset=UTF-8"})
+    @POST("readBaiKeHeroQuestion")
+    Observable<List<Question>> getBaikeHeroQuestions(@Body RequestBody requestBody);
+
 }

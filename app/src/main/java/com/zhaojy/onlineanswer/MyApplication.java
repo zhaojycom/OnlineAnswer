@@ -6,9 +6,10 @@ import android.os.Environment;
 import android.os.StrictMode;
 
 import com.mob.MobSDK;
-import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
+import com.tencent.bugly.crashreport.CrashReport;
 import com.zhaojy.onlineanswer.bean.MyObjectBox;
+import com.zhaojy.onlineanswer.constant.Strings;
 
 import io.objectbox.BoxStore;
 import io.objectbox.android.AndroidObjectBrowser;
@@ -40,8 +41,11 @@ public class MyApplication extends Application {
         //短信验证码接口初始化
         MobSDK.init(this);
 
+        /*腾讯bugly*/
+        CrashReport.initCrashReport(getApplicationContext(), Strings.BUGLY_APP_ID, false);
+
         //内存泄漏检测
-        refWatcher = LeakCanary.install(this);
+        // refWatcher = LeakCanary.install(this);
     }
 
     public BoxStore getBoxStore() {

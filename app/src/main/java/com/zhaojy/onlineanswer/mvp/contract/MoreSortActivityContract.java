@@ -2,7 +2,9 @@ package com.zhaojy.onlineanswer.mvp.contract;
 
 import android.content.Context;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zhaojy.onlineanswer.bean.QuestionSort;
+import com.zhaojy.onlineanswer.bean.ResponseBody;
 
 import java.util.List;
 
@@ -22,6 +24,14 @@ public interface MoreSortActivityContract {
 
         void search();
 
+        void deleteSuccess(BaseQuickAdapter adapter, QuestionSort sort, int pos);
+
+        void deleteFailure();
+
+        void addSuccess(BaseQuickAdapter adapter, QuestionSort sort, int pos);
+
+        void addFailure();
+
     }
 
     interface Presenter {
@@ -29,17 +39,28 @@ public interface MoreSortActivityContract {
 
         void process();
 
-        void getQuestionSortInfo(Context context);
+        void getMoreSort(Context context);
 
         void refreshSort(List<QuestionSort> questionSorts);
 
         void clearPresenter();
 
+        void deleteUserSort(BaseQuickAdapter adapter, QuestionSort sort, int pos, Context context);
+
+        void addUserSort(BaseQuickAdapter adapter, QuestionSort sort, int pos, Context context);
+
+        void deleteResult(BaseQuickAdapter adapter, QuestionSort sort, int pos, ResponseBody body);
+
+        void addResult(BaseQuickAdapter adapter, QuestionSort sort, int pos, ResponseBody body);
     }
 
     interface Model {
-        void getQuestionSortInfo(Context context);
+        void getMoreSort(Context context);
 
         void clearPresenter();
+
+        void deleteUserSort(BaseQuickAdapter adapter, QuestionSort sort, int pos, Context context);
+
+        void addUserSort(BaseQuickAdapter adapter, QuestionSort sort, int pos, Context context);
     }
 }

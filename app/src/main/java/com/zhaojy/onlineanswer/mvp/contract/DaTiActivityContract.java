@@ -3,6 +3,8 @@ package com.zhaojy.onlineanswer.mvp.contract;
 import android.content.Context;
 
 import com.zhaojy.onlineanswer.bean.Question;
+import com.zhaojy.onlineanswer.bean.QuestionDifficult;
+import com.zhaojy.onlineanswer.bean.ResponseBody;
 
 import java.util.List;
 
@@ -40,11 +42,21 @@ public interface DaTiActivityContract {
 
         void getQuestions();
 
+        void getErrorQuestions();
+
+        void getBaikeHeroQuestions();
+
         void updateQuestions(List<Question> questions);
 
         void showLoading();
 
         void hiddeLoading();
+
+        void submitResult(ResponseBody responseBody);
+
+        void updateDifficult(String[] items, List<QuestionDifficult> difficultList);
+
+        void giveQuestionFailure();
     }
 
     interface Presenter {
@@ -52,12 +64,38 @@ public interface DaTiActivityContract {
 
         void process();
 
-        void getQuestions(Context context, int questionSortId);
+        void getQuestions(Context context, int questionSortId, int difficultId);
+
+        void getErrorQuestions(Context context, int questionSortId);
+
+        void getBaikeHeroQuestions(Context context, int difficultId);
 
         void updateQuestions(List<Question> questions);
+
+        void submitQuestion(List<Question> questionList, Context context);
+
+        void submitErrorQuetstion(List<Question> questionList, Context context);
+
+        void submitResult(ResponseBody responseBody);
+
+        void getQuestionDifficult(Context context);
+
+        void updateDifficult(List<QuestionDifficult> difficultList);
+
+        void giveQuestionFailure();
     }
 
     interface Model {
-        void getQuestions(Context context, int questionSortId);
+        void getQuestions(Context context, int questionSortId, int difficultId);
+
+        void getErrorQuestions(Context context, int questionSortId);
+
+        void getBaikeHeroQuestions(Context context, int difficultId);
+
+        void submitQuestion(List<Question> questionList, Context context);
+
+        void submitErrorQuetstion(List<Question> questionList, Context context);
+
+        void getQuestionDifficult(Context context);
     }
 }

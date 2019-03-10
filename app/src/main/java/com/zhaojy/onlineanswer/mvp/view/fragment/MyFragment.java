@@ -9,6 +9,7 @@ import android.os.Environment;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -23,6 +24,7 @@ import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.signature.StringSignature;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.fingerth.supdialogutils.SYSDiaLogUtils;
 import com.google.gson.Gson;
 import com.zhaojy.onlineanswer.R;
 import com.zhaojy.onlineanswer.bean.MyRecyclerBean;
@@ -37,6 +39,7 @@ import com.zhaojy.onlineanswer.mvp.adapter.MyRecyclerAdapter;
 import com.zhaojy.onlineanswer.mvp.contract.LoginActivityContract;
 import com.zhaojy.onlineanswer.mvp.contract.MyFragmentContract;
 import com.zhaojy.onlineanswer.mvp.presenter.MyFragmentPresenter;
+import com.zhaojy.onlineanswer.mvp.view.activity.ErrorsPracticeActivity;
 import com.zhaojy.onlineanswer.mvp.view.activity.LoginActivity;
 import com.zhaojy.onlineanswer.mvp.view.activity.MainActivity;
 import com.zhaojy.onlineanswer.utils.ScreenUtils;
@@ -93,7 +96,19 @@ public class MyFragment extends BaseFragment implements MyFragmentContract.View
      */
     @OnClick(R.id.exitLogin)
     protected void exitLogin() {
-        exitLoginSubject.notifyObserver();
+        //确认退出登录弹框
+        SYSDiaLogUtils.showConfirmDialog(getActivity(), true, SYSDiaLogUtils.SYSConfirmType.Tip,
+                "", Strings.ASURE_EXIT_LOGIN, new SYSDiaLogUtils.ConfirmDialogListener() {
+                    @Override
+                    public void onClickButton(boolean clickLeft, boolean clickRight) {
+                        if (clickLeft) {
+
+                        } else if (clickRight) {
+                            //确认退出执行退出操作
+                            exitLoginSubject.notifyObserver();
+                        }
+                    }
+                });
     }
 
     @Override
@@ -132,10 +147,9 @@ public class MyFragment extends BaseFragment implements MyFragmentContract.View
     @Override
     public void setRecyclerView() {
         final List<MyRecyclerBean> data = new ArrayList<>();
-        MyRecyclerBean recyclerBean = new MyRecyclerBean();
-        recyclerBean.setIcon(R.mipmap.errors);
-        recyclerBean.setTitle("错题练习");
-        data.add(recyclerBean);
+        //添加错题练习
+        data.add(generateBean(R.mipmap.errors, Strings.ERRORS_PRACTICE
+                , ErrorsPracticeActivity.class));
 
         MyRecyclerAdapter recyclerAdapter = new MyRecyclerAdapter(data);
         recyclerAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
@@ -144,6 +158,9 @@ public class MyFragment extends BaseFragment implements MyFragmentContract.View
                 Intent intent = data.get(position).getIntent();
                 if (intent != null) {
                     startActivity(intent);
+                } else if (User.getInstance().getPhone() == null) {
+                    //用户未登录
+                    LoginActivity.newInstance(getActivity());
                 }
 
             }
@@ -159,6 +176,16 @@ public class MyFragment extends BaseFragment implements MyFragmentContract.View
 
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(recyclerAdapter);
+    }
+
+    private MyRecyclerBean generateBean(int icon, String title, Class cla) {
+        MyRecyclerBean recyclerBean = new MyRecyclerBean();
+        recyclerBean.setIcon(icon);
+        recyclerBean.setTitle(title);
+        Intent intent = new Intent(getActivity(), cla);
+        recyclerBean.setIntent(intent);
+
+        return recyclerBean;
     }
 
     @Override
@@ -338,7 +365,7 @@ public class MyFragment extends BaseFragment implements MyFragmentContract.View
                     }
                 });
 
-        if (user.getNickname() != null) {
+        if (user.getNickname() != null && !TextUtils.isEmpty(user.getNickname())) {
             nickname.setText(user.getNickname());
         }
     }

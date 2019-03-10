@@ -10,7 +10,7 @@
         android:id="@+id/icon"
         android:layout_width="@dimen/questionSortItemIconHw"
         android:layout_height="@dimen/questionSortItemIconHw"
-        android:src="@mipmap/icon"
+        android:src="@mipmap/moresort"
         app:xhradius="@dimen/questionSortItemIconRadius"
         app:xhtype="fillet" />
 

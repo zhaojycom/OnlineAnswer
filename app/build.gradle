@@ -78,4 +78,9 @@ dependencies {
     implementation files('libs/com.ibm.icu_3.8.1.v20080530.jar')
     implementation files('libs/pinyin4j-2.5.0.jar')
     implementation 'com.github.1002326270xc:LayoutManager-FlowLayout:v1.7'
+    /*弹窗*/
+    implementation 'com.lxj:xpopup:1.4.2'
+    /*bugly*/
+    implementation 'com.tencent.bugly:crashreport:latest.release' //其中latest.release指代最新Bugly SDK版本号，也可以指定明确的版本号，例如2.2.0
+
 }

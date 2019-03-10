@@ -48,6 +48,8 @@
     <dimen name="optionItemBoxRadius">12dp</dimen>
     <dimen name="datiBottomBarH">40dp</dimen>
     <dimen name="moreSortsIvWh">30dp</dimen>
+    <dimen name="moreSortItemH">50dp</dimen>
+    <dimen name="moreSortIconPlr">12dp</dimen>
     <dimen name="datiRightM">6dp</dimen>
     <dimen name="scantron_gridview_verticalSpacing">30dp</dimen>
     <dimen name="scantron_question_item_wh">36dp</dimen>
@@ -69,5 +71,9 @@
     <dimen name="searchHistoryItemRadius">12dp</dimen>
     <dimen name="searchHistoryItemFont">14dp</dimen>
     <dimen name="searchHistoryMlr">40dp</dimen>
+    <dimen name="searchResultMtb">50dp</dimen>
+    <dimen name="searchResultBoxRadius">3dp</dimen>
+    <dimen name="fundatiItemPtb">10dp</dimen>
+    <dimen name="fundatiTitleFontS">16sp</dimen>
 
 </resources>

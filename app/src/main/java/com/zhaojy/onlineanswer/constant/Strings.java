@@ -94,7 +94,10 @@ public class Strings {
     public final static String ADD_FAILURE_MSG = "添加失败";
 
     public final static String DELETE_FAILURE_MSG = "删除失败";
-    public final static int MAX_USER_SORT = 10;
-    public final static String OUT_MAX_USER_SORT="超出上限";
-    public final static String ENCYCLOPEDIA_HERO ="百科英雄";
+    public final static int MAX_USER_SORT = 7;
+    public final static String OUT_MAX_USER_SORT = "超出上限";
+    public final static String ENCYCLOPEDIA_HERO = "百科英雄";
+    public final static String GIVE_QUESTION_FAILURE = "出题失败";
+    public final static String ERROR_TIP = "错误提示";
+    public final static String BUGLY_APP_ID="bf1ac5b058";
 }

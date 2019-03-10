@@ -2,6 +2,7 @@ package com.zhaojy.onlineanswer.bean;
 
 public class QuestionRequestParams {
     private int sortId;
+    private int difficultId;
     private int limit;
     private int offset;
     private String userPhone;
@@ -12,6 +13,14 @@ public class QuestionRequestParams {
 
     public void setSortId(int sortId) {
         this.sortId = sortId;
+    }
+
+    public int getDifficultId() {
+        return difficultId;
+    }
+
+    public void setDifficultId(int difficultId) {
+        this.difficultId = difficultId;
     }
 
     public int getLimit() {

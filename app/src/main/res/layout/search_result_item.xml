@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?android:attr/selectableItemBackground"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/title_bar_plr"
+        android:paddingTop="@dimen/moreSortFontP"
+        android:paddingRight="@dimen/title_bar_plr"
+        android:paddingBottom="@dimen/moreSortFontP">
+
+        <!--分类图标-->
+        <com.zhaojy.onlineanswer.ui.RoundImageView
+            android:id="@+id/icon"
+            android:layout_width="@dimen/moreSortsIvWh"
+            android:layout_height="@dimen/moreSortsIvWh" />
+
+        <!--分类名称-->
+        <TextView
+            android:id="@+id/sortName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/moreSortFontP"
+            android:textColor="@color/black"
+            android:textSize="@dimen/moreSortFontS" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/moreSortSplitLineH"
+        android:layout_marginLeft="@dimen/title_bar_plr"
+        android:layout_marginRight="@dimen/title_bar_plr"
+        android:background="@color/moreSortSplitLine">
+
+    </View>
+
+</LinearLayout>

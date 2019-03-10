@@ -126,7 +126,6 @@ public class LoginActivity extends BaseActivity implements LoginActivityContract
         }
     }
 
-
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         if (hasFocus) {

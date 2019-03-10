@@ -20,6 +20,10 @@ public interface SortSearchActivityContract {
         void readSearchHistory();
 
         void clearRecords();
+
+        void setSearchResult();
+
+        void excuteSearch(String keyword);
     }
 
     interface Presenter {

@@ -26,5 +26,6 @@
     <string name="inputKeyWord">请输入关键字</string>
     <string name="searchHistory">搜索历史</string>
     <string name="clearRecords">清空记录</string>
+    <string name="myErrors">我的错题</string>
 
 </resources>

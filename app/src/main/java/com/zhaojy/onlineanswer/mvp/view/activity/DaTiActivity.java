@@ -1,6 +1,5 @@
 package com.zhaojy.onlineanswer.mvp.view.activity;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.SystemClock;
 import android.support.v4.app.Fragment;
@@ -16,13 +15,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fingerth.supdialogutils.SYSDiaLogUtils;
+import com.lxj.xpopup.XPopup;
+import com.lxj.xpopup.interfaces.OnSelectListener;
 import com.zhaojy.onlineanswer.R;
 import com.zhaojy.onlineanswer.bean.Question;
+import com.zhaojy.onlineanswer.bean.QuestionDifficult;
 import com.zhaojy.onlineanswer.bean.ResponseBody;
-import com.zhaojy.onlineanswer.constant.SiteInfo;
 import com.zhaojy.onlineanswer.constant.Strings;
-import com.zhaojy.onlineanswer.data.Update;
-import com.zhaojy.onlineanswer.data.question.SubmitQuestionsPresenter;
 import com.zhaojy.onlineanswer.mvp.adapter.QuestionAdapter;
 import com.zhaojy.onlineanswer.mvp.contract.DaTiActivityContract;
 import com.zhaojy.onlineanswer.mvp.presenter.DaTiActivityPresenter;
@@ -43,12 +42,31 @@ import butterknife.OnClick;
 public class DaTiActivity extends BaseActivity implements DaTiActivityContract.View {
     public final static String QUESTION_SORT_NAME = "questionSortName";
     public final static String QUESION_SORT_ID = "questionSortId";
+    /**
+     * 答题分类
+     */
+    public final static String DATI_SORT = "datiSort";
+    /**
+     * 普通分类答题
+     */
+    public final static int ORDINARY_SORT = 0x100;
+    /**
+     * 错题分类答题
+     */
+    public final static int ERROR_SORT = 0x101;
+    /**
+     * 百科英雄答题
+     */
+    public final static int BAIKEHERO = 0x102;
     @BindView(R.id.back)
     public ImageView back;
     @BindView(R.id.questionSortName)
     public TextView questionSortName;
+    @BindView(R.id.difficlut)
+    public TextView difficlut;
     private String questionSortNameStr;
     private int questionSortId;
+    private int datiSort;
     @BindView(R.id.viewPager)
     public ViewPager viewPager;
     private QuestionAdapter questionAdapter;
@@ -81,16 +99,6 @@ public class DaTiActivity extends BaseActivity implements DaTiActivityContract.V
      */
     private int curQuestionPos;
 
-    /**
-     * 加载框变量
-     */
-    private ProgressDialog progressDialog;
-
-    /**
-     * 提交已完成题目presenter
-     */
-    private SubmitQuestionsPresenter submitQuestionsPresenter;
-
     private DaTiActivityContract.Presenter presenter;
 
     /**
@@ -109,9 +117,7 @@ public class DaTiActivity extends BaseActivity implements DaTiActivityContract.V
             viewPager.removeAllViews();
             viewPager = null;
         }
-        if (submitQuestionsPresenter != null) {
-            submitQuestionsPresenter.onStop();
-        }
+
     }
 
     @Override
@@ -177,7 +183,33 @@ public class DaTiActivity extends BaseActivity implements DaTiActivityContract.V
         setQuestionSortName();
         //设置题目viewPager
         setViewPager();
-        getQuestions();
+
+        //判断答题类型
+        judgeDatiSort();
+
+    }
+
+    /**
+     * 判断答题类型
+     */
+    private void judgeDatiSort() {
+
+        switch (datiSort) {
+            case ORDINARY_SORT:
+                //普通答题模式
+                getQuestions();
+                break;
+            case ERROR_SORT:
+                //读取错题
+                getErrorQuestions();
+                break;
+            case BAIKEHERO:
+                //获取百科英雄题目
+                getBaikeHeroQuestions();
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
@@ -193,6 +225,7 @@ public class DaTiActivity extends BaseActivity implements DaTiActivityContract.V
         Intent intent = getIntent();
         questionSortNameStr = intent.getStringExtra(QUESTION_SORT_NAME);
         questionSortId = intent.getIntExtra(QUESION_SORT_ID, 0);
+        datiSort = intent.getIntExtra(DATI_SORT, 0);
     }
 
     /**
@@ -219,7 +252,6 @@ public class DaTiActivity extends BaseActivity implements DaTiActivityContract.V
         viewPager.setAdapter(questionAdapter);
 
         viewPager.setOffscreenPageLimit(Strings.MAX_READ_QUESTION_SUM);
-
     }
 
     /**
@@ -280,12 +312,29 @@ public class DaTiActivity extends BaseActivity implements DaTiActivityContract.V
 
     @Override
     public void getQuestions() {
-        presenter.getQuestions(this, questionSortId);
+        //获取难度
+        presenter.getQuestionDifficult(this);
+    }
+
+    /**
+     * 读取错题
+     */
+    @Override
+    public void getErrorQuestions() {
+        presenter.getErrorQuestions(this, questionSortId);
         //显示加载提示框
         SYSDiaLogUtils.showProgressDialog(this,
                 SYSDiaLogUtils.SYSDiaLogType.IosType, Strings.GIVE_QUESTIONS,
                 false, null);
+    }
 
+    /**
+     * 获取百科英雄题目
+     */
+    @Override
+    public void getBaikeHeroQuestions() {
+        //获取难度
+        presenter.getQuestionDifficult(this);
     }
 
     @Override
@@ -323,6 +372,69 @@ public class DaTiActivity extends BaseActivity implements DaTiActivityContract.V
 
     }
 
+    @Override
+    public void submitResult(ResponseBody responseBody) {
+        if (responseBody.getCode() == Strings.SUBMIT_SUCCESS) {
+            //提交成功
+            //遍历通知批改试卷
+            for (Fragment fragment : questionFragmentList) {
+                GradingPapers gradingPaper = (GradingPapers) fragment;
+                gradingPaper.gradingQuestion();
+            }
+
+            //隐藏底部栏
+            bottomBar.setVisibility(View.GONE);
+        } else {
+            //提交失败
+            Log.e(TAG, "提交失败");
+        }
+    }
+
+    @Override
+    public void updateDifficult(String[] items, final List<QuestionDifficult> difficultList) {
+        XPopup.get(DaTiActivity.this).asCenterList(Strings.SELECT_DIFFICULT,
+                items,
+                new OnSelectListener() {
+                    @Override
+                    public void onSelect(int position, String text) {
+                        QuestionDifficult difficult = difficultList.get(position);
+                        //获取难度
+                        int difficultId = difficult.getId();
+                        //设置难度文字
+                        difficlut.setText("难度:" + difficult.getName());
+
+                        //显示加载提示框
+                        SYSDiaLogUtils.showProgressDialog(DaTiActivity.this,
+                                SYSDiaLogUtils.SYSDiaLogType.IosType, Strings.GIVE_QUESTIONS,
+                                false, null);
+                        //根据答题类型进行相应的调用
+                        switch (datiSort) {
+                            case ORDINARY_SORT:
+                                //普通分类答题模式
+                                presenter.getQuestions(DaTiActivity.this, questionSortId, difficultId);
+                                break;
+                            case BAIKEHERO:
+                                //百科英雄
+                                presenter.getBaikeHeroQuestions(
+                                        DaTiActivity.this, difficultId);
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                })
+                .show();
+    }
+
+    @Override
+    public void giveQuestionFailure() {
+        //隐藏加载提示框
+        SYSDiaLogUtils.dismissProgress();
+        XPopup.get(this).asConfirm(Strings.ERROR_TIP, Strings.GIVE_QUESTION_FAILURE
+                , null)
+                .show();
+    }
+
     /**
      * 提交并查看结果
      */
@@ -335,41 +447,17 @@ public class DaTiActivity extends BaseActivity implements DaTiActivityContract.V
                 return;
             }
         }
-        //向后台提交已完成的题目
-        submitQuestionsPresenter = new SubmitQuestionsPresenter(this);
-        submitQuestionsPresenter.setBaseUrl(SiteInfo.HOST_URL + SiteInfo.QUESTION);
-        submitQuestionsPresenter.attachUpdate(new Update() {
-            @Override
-            public void onSuccess(Object object) {
-                ResponseBody responseBody = (ResponseBody) object;
-                if (responseBody.getCode() == Strings.SUBMIT_SUCCESS) {
-                    //提交成功
-                    //遍历通知批改试卷
-                    for (Fragment fragment : questionFragmentList) {
-                        GradingPapers gradingPaper = (GradingPapers) fragment;
-                        gradingPaper.gradingQuestion();
-                    }
 
-                    //隐藏底部栏
-                    bottomBar.setVisibility(View.GONE);
-                } else {
-                    //提交失败
-                    Log.e(TAG, "提交失败");
-                }
-
-                //设置提交完成
-                submited = true;
-            }
-
-            @Override
-            public void onError(String result) {
-                Log.e(TAG, result);
-                //设置提交完成
-                submited = true;
-            }
-        });
-        submitQuestionsPresenter.onCreate();
-        submitQuestionsPresenter.submitQuestion(questionList);
+        switch (datiSort) {
+            case ERROR_SORT:
+                //提交错题更新
+                presenter.submitErrorQuetstion(questionList, this);
+                break;
+            default:
+                //提交普通类型答题结果
+                presenter.submitQuestion(questionList, this);
+                break;
+        }
 
         //停止计时
         chronometer.stop();

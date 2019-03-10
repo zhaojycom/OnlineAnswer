@@ -15,4 +15,5 @@
     <color name="option">#444</color>
     <color name="error">#f00</color>
     <color name="dati_bottom_btn_selected">#2c3037</color>
+    <color name="search_history_item_selected">#ccc</color>
 </resources>
